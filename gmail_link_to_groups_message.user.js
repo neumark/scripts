@@ -12,12 +12,14 @@ var SHOW_DETAILS_CLASS = "iD";
 
 frames.js.gmonkey.load('1.0', function(gmail) {
 var showDetails = function() {
-        var nodes = getNodesByTagNameAndClass(gmail.getActiveViewElement(), "span", SHOW_DETAILS_CLASS);
+        var show, i,nodes = getNodesByTagNameAndClass(gmail.getActiveViewElement(), "span", SHOW_DETAILS_CLASS);
         if (!nodes) return;
-        var show = nodes[0]; //only shows details of the first available message
-        if (!show) return;
-        if (show.innerHTML == "show details"){
-            simulateClick(show, "click");
+        for (i = 0; i < nodes.length; i++) {
+            show = nodes[i]; //only shows details of the first available message
+            if (!show) return;
+            if (show.innerHTML == "show details"){
+                simulateClick(show, "click");
+            }
         }
     },
     simulateClick = function(node, eventType) {
