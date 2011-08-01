@@ -132,23 +132,25 @@
                         }
                     }
                     return results;
+                },
+                main = function() {
+                    if (window.frames.js.gmonkey) {
+                        window.frames.js.gmonkey.load('2.0', function (gmail) {
+                            getCurrentThread = function () {
+                                return gmail.getCurrentThread();
+                            };
+                            window.setTimeout(function() {
+                                gmail.registerViewChangeCallback(viewChangeCallback);
+                            }, 500);
+                            addJQuery(viewChangeCallback);
+                        });
+                        window.removeEventListener('load', arguments.callee);
+                    } else {
+                        console.log("no gmonkey found!");
+                    }
                 };
-                // start execution here:
                 debugger;
-                if (gmonkey) {
-                    gmonkey.load('2.0', function (gmail) {
-                        getCurrentThread = function () {
-                            return gmail.getCurrentThread();
-                        };
-                        window.setTimeout(function() {
-                            gmail.registerViewChangeCallback(viewChangeCallback);
-                        }, 500);
-                        addJQuery(viewChangeCallback);
-                    });
-                    window.removeEventListener('load', arguments.callee);
-                } else {
-                    console.log("no gmonkey found!");
-                }
+                main();
         });
         // start execution here:
         window.addEventListener('load', function() {
@@ -156,9 +158,9 @@
             window.removeEventListener('load', arguments.callee);
             if (!firstRun) return;
             firstRun = false;
-            script = document.createElement("script");
-            script.text = '('+script_body.src + ')();';
-            console.dir(script);
+            var script = document.createElement("script");
+            script.text = '('+script_body + ')();';
+            script.addEventListener('load', function() {console.dir('loaded dynamic script element');}, false);
             document.body.appendChild(script);
         });
 }());
