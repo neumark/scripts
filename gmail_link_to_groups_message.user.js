@@ -5,7 +5,7 @@
 // @include        http://mail.google.com/*
 // @include        https://mail.google.com/*
 // ==/UserScript==
-
+// Version 1.0
 (function() {
     var // getCurrentThread() is replaced when greasemonkey object is obtained.
         getCurrentThread,
