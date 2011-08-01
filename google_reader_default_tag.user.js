@@ -11,7 +11,7 @@
             var d = new Date(), 
                 strDate = d.getFullYear() + '-' + formatNumberLength(d.getMonth()+1, 2) + '-' +
                 formatNumberLength(d.getDate(), 2);
-            return "activity:"+strDate;
+            return "bookmark, activity:"+strDate;
         },
         customizeWindow = function() {
             // uncheck 'add to shared items' checkbox:

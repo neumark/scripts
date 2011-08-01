@@ -134,7 +134,7 @@
                     return results;
                 },
                 main = function() {
-                    if (window.frames.js.gmonkey) {
+                    if (window && window.frames && window.frames.js && window.frames.js.gmonkey) {
                         window.frames.js.gmonkey.load('2.0', function (gmail) {
                             getCurrentThread = function () {
                                 return gmail.getCurrentThread();
@@ -144,23 +144,19 @@
                             }, 500);
                             addJQuery(viewChangeCallback);
                         });
-                        window.removeEventListener('load', arguments.callee);
                     } else {
                         console.log("no gmonkey found!");
                     }
                 };
-                debugger;
                 main();
         });
         // start execution here:
         window.addEventListener('load', function() {
             var script;
-            window.removeEventListener('load', arguments.callee);
             if (!firstRun) return;
             firstRun = false;
-            var script = document.createElement("script");
+            script = document.createElement("script");
             script.text = '('+script_body + ')();';
-            script.addEventListener('load', function() {console.dir('loaded dynamic script element');}, false);
             document.body.appendChild(script);
         });
 }());
