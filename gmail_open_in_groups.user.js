@@ -133,9 +133,9 @@
                     }
                     return results;
                 },
-                main = function() {
-                    if (window && window.frames && window.frames.js && window.frames.js.gmonkey) {
-                        window.frames.js.gmonkey.load('2.0', function (gmail) {
+                main = function(gmonkey) {
+                    if (gmonkey) {
+                        gmonkey.load('2.0', function (gmail) {
                             getCurrentThread = function () {
                                 return gmail.getCurrentThread();
                             };
@@ -148,7 +148,8 @@
                         console.log("no gmonkey found!");
                     }
                 };
-                main();
+                window.GM_groups_init = main;
+                debugger;
         });
         // start execution here:
         window.addEventListener('load', function() {
