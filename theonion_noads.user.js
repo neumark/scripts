@@ -11,7 +11,7 @@
 window.addEventListener("load", function() { 
     document.getElementsByTagName('body')[0].addEventListener('DOMSubtreeModified', function() {
         $('div').filter(function(){return $(this).css('z-index') == 99998;}).remove()
-        $('#pp-outer').remove()
+        $('#ppUI').remove()
         $('.offpage').remove()
     });
 });
